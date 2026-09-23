@@ -143,7 +143,6 @@
 
         <p class="lead narrow">
             Choose from subscription plans or Top-up access.
-            Final commercial prices remain subject to client confirmation.
         </p>
 
         <div class="home-pricing-grid">
@@ -152,28 +151,52 @@
                 <div class="plan-icon">🌱</div>
                 <h3>Starter</h3>
                 <p>For individuals getting started with secure transfers.</p>
-                <strong>Price to be confirmed</strong>
+                <strong>
+                    @if (($plans['starter']->price ?? null) !== null)
+                        £{{ number_format((float) $plans['starter']->price, 2) }} / month
+                    @else
+                        Price to be confirmed
+                    @endif
+                </strong>
             </article>
 
             <article class="home-plan-card">
                 <div class="plan-icon">💼</div>
                 <h3>Basic</h3>
                 <p>For regular users who need more flexibility.</p>
-                <strong>Price to be confirmed</strong>
+                <strong>
+                    @if (($plans['basic']->price ?? null) !== null)
+                        £{{ number_format((float) $plans['basic']->price, 2) }} / month
+                    @else
+                        Price to be confirmed
+                    @endif
+                </strong>
             </article>
 
             <article class="home-plan-card featured-home-plan">
                 <div class="plan-icon">★</div>
                 <h3>Premium</h3>
                 <p>Advanced features for professional transfer activity.</p>
-                <strong>Price to be confirmed</strong>
+                <strong>
+                    @if (($plans['premium']->price ?? null) !== null)
+                        £{{ number_format((float) $plans['premium']->price, 2) }} / month
+                    @else
+                        Price to be confirmed
+                    @endif
+                </strong>
             </article>
 
             <article class="home-plan-card">
                 <div class="plan-icon">＋</div>
                 <h3>Top-up</h3>
                 <p>Add extra transfer allowance when required.</p>
-                <strong>Price to be confirmed</strong>
+                <strong>
+                    @if (($plans['top-up']->price ?? null) !== null)
+                        £{{ number_format((float) $plans['top-up']->price, 2) }} one-off
+                    @else
+                        Price to be confirmed
+                    @endif
+                </strong>
             </article>
 
         </div>

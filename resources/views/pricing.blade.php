@@ -20,9 +20,6 @@
             <span>Yearly</span>
         </div>
 
-        <p class="pricing-note">
-            Final prices and billing options are subject to client confirmation.
-        </p>
     </div>
 </section>
 
@@ -43,7 +40,12 @@
             </p>
 
             <div class="price">
-                Price to be confirmed
+                @if (($plans['starter']->price ?? null) !== null)
+                    £{{ number_format((float) $plans['starter']->price, 2) }}
+                    <small>/ month</small>
+                @else
+                    Price to be confirmed
+                @endif
             </div>
 
             <ul>
@@ -78,7 +80,12 @@
             </p>
 
             <div class="price">
-                Price to be confirmed
+                @if (($plans['basic']->price ?? null) !== null)
+                    £{{ number_format((float) $plans['basic']->price, 2) }}
+                    <small>/ month</small>
+                @else
+                    Price to be confirmed
+                @endif
             </div>
 
             <ul>
@@ -118,7 +125,12 @@
             </p>
 
             <div class="price">
-                Price to be confirmed
+                @if (($plans['premium']->price ?? null) !== null)
+                    £{{ number_format((float) $plans['premium']->price, 2) }}
+                    <small>/ month</small>
+                @else
+                    Price to be confirmed
+                @endif
             </div>
 
             <ul>
@@ -156,7 +168,12 @@
             </p>
 
             <div class="price">
-                Price to be confirmed
+                @if (($plans['top-up']->price ?? null) !== null)
+                    £{{ number_format((float) $plans['top-up']->price, 2) }}
+                    <small>one-off</small>
+                @else
+                    Price to be confirmed
+                @endif
             </div>
 
             <ul>

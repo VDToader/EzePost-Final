@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         Plan::updateOrCreate(['slug' => 'starter'], [
             'name' => 'Starter',
             'description' => 'Entry-level access for individual users.',
-            'price' => null,
+            'price' => 1.99,
             'billing_type' => 'monthly',
             'active' => true,
         ]);
@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         Plan::updateOrCreate(['slug' => 'basic'], [
             'name' => 'Basic',
             'description' => 'Regular use with additional transfer capability.',
-            'price' => null,
+            'price' => 4.99,
             'billing_type' => 'monthly',
             'active' => true,
         ]);
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         Plan::updateOrCreate(['slug' => 'premium'], [
             'name' => 'Premium',
             'description' => 'Advanced features and higher-volume use.',
-            'price' => null,
+            'price' => 9.99,
             'billing_type' => 'monthly',
             'active' => true,
         ]);
@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
         Plan::updateOrCreate(['slug' => 'top-up'], [
             'name' => 'Top-up',
             'description' => 'One-off additional transfer allowance.',
-            'price' => null,
+            'price' => 10.00,
             'billing_type' => 'one_off',
             'active' => true,
         ]);

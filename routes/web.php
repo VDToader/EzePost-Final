@@ -6,10 +6,21 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\TransferController;
+use App\Models\Plan;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'home')->name('home');
-Route::view('/pricing', 'pricing')->name('pricing');
+Route::get('/', function () {
+    return view('home', [
+        'plans' => Plan::query()->where('active', true)->orderBy('id')->get()->keyBy('slug'),
+    ]);
+})->name('home');
+
+Route::get('/pricing', function () {
+    return view('pricing', [
+        'plans' => Plan::query()->where('active', true)->orderBy('id')->get()->keyBy('slug'),
+    ]);
+})->name('pricing');
+
 Route::view('/download', 'download')->name('download');
 
 Route::middleware('guest')->group(function () {
