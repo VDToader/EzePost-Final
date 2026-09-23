@@ -1,0 +1,41 @@
+<?php
+
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PdfController;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\TransferController;
+use Illuminate\Support\Facades\Route;
+
+Route::view('/', 'home')->name('home');
+Route::view('/pricing', 'pricing')->name('pricing');
+Route::view('/download', 'download')->name('download');
+
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+});
+
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/transfers', [TransferController::class, 'store'])->name('transfers.store');
+    Route::get('/account/summary.pdf', [PdfController::class, 'summary'])->name('account.summary.pdf');
+
+    Route::post('/checkout/{plan}', [StripeController::class, 'checkout'])->name('stripe.checkout');
+    Route::get('/checkout/success', [StripeController::class, 'success'])->name('stripe.success');
+    Route::get('/checkout/cancel', [StripeController::class, 'cancel'])->name('stripe.cancel');
+});
+
+Route::post('/stripe/webhook', [StripeController::class, 'webhook'])
+    ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])
+    ->name('stripe.webhook');
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::post('/plans/{plan}/toggle', [AdminController::class, 'togglePlan'])->name('plans.toggle');
+});
