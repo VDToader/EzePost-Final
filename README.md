@@ -2,9 +2,11 @@
 
 Laravel web application for the EZE POST secure file transfer project.
 
-PHP, MySQL 8, and Mailpit run in Docker. You do **not** need PHP, Composer, or Node installed on your laptop.
+PHP, MySQL 8, and Mailpit run in Docker. You do not need to install the following on 
+your machine: PHP, Composer, or Node. The entire web application runs inside a Docker container,
+having all the prereq. already installed.
 
-## Prerequisites
+## Prerequisites (Software that you need to download for this project to run)
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) running (whale icon in the tray)
 - Git
@@ -12,12 +14,17 @@ PHP, MySQL 8, and Mailpit run in Docker. You do **not** need PHP, Composer, or N
 ## First-time setup
 
 ```powershell
-git clone <repo-url>
-cd eze-post02
+git clone https://github.com/VDToader/EzePost-Final
+cd EzePost-Final
 Copy-Item .env.example .env
+
+OR
+
+Download the project folder "from" GitHub or SOL platform, extract the zip archive and open a cmd / powershell
+console inside the main folder.
 ```
 
-Install PHP packages **inside Docker** (no local PHP):
+Install PHP packages **inside Docker** (If PHP is not installed on your local machine):
 
 ```powershell
 docker run --rm -v ${PWD}:/opt -w /opt laravelsail/php84-composer:latest composer install --ignore-platform-reqs
@@ -45,7 +52,7 @@ docker compose up -d
 
 | What | URL / connection |
 |---|---|
-| Website | http://localhost |
+| Website | http://localhost | (Project Configured on port 80)
 | Mailpit (dev inbox) | http://localhost:8025 |
 | MySQL | `127.0.0.1:3306` · database `eze_post` · user `sail` · password `password` |
 
@@ -79,6 +86,8 @@ Or the helper in this folder:
 
 Never commit `.env`. Commit `.env.example`. `vendor/` is installed on each machine with Composer inside Docker.
 
+Added the files inside git ignore to enforce safety net.
+
 ## Demo Accounts
 
 ### Admin
@@ -93,6 +102,9 @@ Password: Admin123!
 ```text
 Email: customer@example.com
 Password: Password123!
+
+Email: test1@gmail.com
+Password: Test123!
 ```
 
 ## Main Features
