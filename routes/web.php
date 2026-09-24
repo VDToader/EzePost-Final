@@ -21,6 +21,16 @@ Route::get('/pricing', function () {
     ]);
 })->name('pricing');
 
+
+// Static routes for EzePost navigation & footer
+Route::view('/about', 'about')->name('about');
+Route::view('/contact', 'contact')->name('contact');
+Route::view('/features', 'features')->name('features');
+Route::view('/privacy-policy', 'privacy-policy')->name('privacy-policy');
+Route::view('/help-centre', 'help-centre')->name('help-centre');
+Route::view('/terms-of-service', 'terms-of-service')->name('terms-of-service');
+Route::view('/cookie-policy', 'cookie-policy')->name('cookie-policy');
+Route::view('/refund-policy', 'refund-policy')->name('refund-policy');
 Route::view('/download', 'download')->name('download');
 
 Route::middleware('guest')->group(function () {
@@ -42,6 +52,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout/cancel', [StripeController::class, 'cancel'])->name('stripe.cancel');
 });
 
+Route::post('/contact', function (\Illuminate\Http\Request $request) {
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'subject' => 'required|string|max:255',
+        'message' => 'required|string',
+    ]);
+
+    return back()->with('success', 'Thank you for reaching out! Your message has been sent successfully.');
+})->name('contact.send');
+
 Route::post('/stripe/webhook', [StripeController::class, 'webhook'])
     ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class])
     ->name('stripe.webhook');
@@ -50,3 +71,4 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::post('/plans/{plan}/toggle', [AdminController::class, 'togglePlan'])->name('plans.toggle');
 });
+
